@@ -9,7 +9,8 @@
       "Bash(composer require:*)",
       "Bash(awk:*)",
       "Bash(ssh:*)",
-      "WebFetch(domain:www.ekiten.jp)"
+      "WebFetch(domain:www.ekiten.jp)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
