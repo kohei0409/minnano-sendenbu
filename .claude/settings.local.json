@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(xargs:*)",
+      "Bash(tree:*)",
+      "Bash(php:*)",
+      "Bash(composer require:*)",
+      "Bash(awk:*)",
+      "Bash(ssh:*)",
+      "WebFetch(domain:www.ekiten.jp)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
