@@ -9,6 +9,40 @@ use Illuminate\Http\Request;
 
 class PublicStoreController extends Controller
 {
+    public function home()
+    {
+        // Featured stores
+        $featuredStores = Store::where('status', 'active')
+            ->featured()
+            ->with(['category', 'area', 'images'])
+            ->limit(6)
+            ->get();
+
+        // New stores
+        $newStores = Store::where('status', 'active')
+            ->with(['category', 'area', 'images'])
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+
+        // Popular stores (by rating)
+        $popularStores = Store::where('status', 'active')
+            ->withReviews()
+            ->with(['category', 'area', 'images'])
+            ->orderBy('average_rating', 'desc')
+            ->orderBy('review_count', 'desc')
+            ->limit(6)
+            ->get();
+
+        // Categories
+        $categories = Category::rootCategories()->get();
+
+        // Areas (prefectures)
+        $areas = Area::prefectures()->limit(12)->get();
+
+        return view('public.home', compact('featuredStores', 'newStores', 'popularStores', 'categories', 'areas'));
+    }
+
     public function index(Request $request)
     {
         $query = Store::query()->where('status', 'active');

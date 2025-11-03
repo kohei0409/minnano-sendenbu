@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="robots" content="noindex, nofollow">
 
         <title>{{ $title ?? 'みんなの宣伝部' }} - {{ config('app.name', 'Laravel') }}</title>
 
@@ -32,9 +33,13 @@
                                     お気に入り
                                 </a>
                                 <span>{{ auth('customer')->user()->name }}さん</span>
+                                <form method="POST" action="{{ route('customer.logout') }}" class="inline">
+                                    @csrf
+                                    <button type="submit" class="hover:text-orange-100">ログアウト</button>
+                                </form>
                             @else
                                 <a href="{{ route('store-applications.create') }}" class="hover:text-orange-100">店舗掲載</a>
-                                <a href="{{ route('login') }}" class="hover:text-orange-100">ログイン</a>
+                                <a href="{{ route('customer.login') }}" class="hover:text-orange-100">ログイン</a>
                             @endauth
                         </div>
                     </div>

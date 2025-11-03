@@ -31,13 +31,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Home page
+Route::get('/', [PublicStoreController::class, 'home'])->name('home');
 
 // Public routes - Store search and details
 Route::get('/stores', [PublicStoreController::class, 'index'])->name('stores.index');
 Route::get('/stores/{store}', [PublicStoreController::class, 'show'])->name('stores.show');
+
+// Customer Authentication routes
+Route::middleware('guest:customer')->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/login', [App\Http\Controllers\Auth\CustomerAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [App\Http\Controllers\Auth\CustomerAuthController::class, 'login']);
+    Route::get('/register', [App\Http\Controllers\Auth\CustomerRegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [App\Http\Controllers\Auth\CustomerRegisterController::class, 'register']);
+
+    // Password Reset
+    Route::get('/forgot-password', [App\Http\Controllers\Auth\CustomerPasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [App\Http\Controllers\Auth\CustomerPasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\CustomerPasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [App\Http\Controllers\Auth\CustomerPasswordResetController::class, 'reset'])->name('password.update');
+});
+
+Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {
+    Route::post('/logout', [App\Http\Controllers\Auth\CustomerAuthController::class, 'logout'])->name('logout');
+});
 
 // Public reservation routes (can be used by guests or customers)
 Route::get('/stores/{store}/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');

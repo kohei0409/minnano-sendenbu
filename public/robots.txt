@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /
+
+# すべてのクローラーをブロック（開発中）
