@@ -9,6 +9,7 @@ class AddEkitenFieldsToStoresTable extends Migration
     public function up(): void
     {
         Schema::table('stores', function (Blueprint $table) {
+            $table->foreignId('user_id')->nullable()->after('id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->after('industry')->constrained()->onDelete('set null');
             $table->foreignId('area_id')->nullable()->after('category_id')->constrained()->onDelete('set null');
             $table->string('postal_code')->nullable()->after('phone');
@@ -33,10 +34,11 @@ class AddEkitenFieldsToStoresTable extends Migration
     public function down(): void
     {
         Schema::table('stores', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropForeign(['category_id']);
             $table->dropForeign(['area_id']);
             $table->dropColumn([
-                'category_id', 'area_id', 'postal_code', 'prefecture', 'city',
+                'user_id', 'category_id', 'area_id', 'postal_code', 'prefecture', 'city',
                 'street_address', 'building', 'latitude', 'longitude',
                 'average_rating', 'review_count', 'view_count',
                 'favorite_count', 'is_featured', 'featured_until'
