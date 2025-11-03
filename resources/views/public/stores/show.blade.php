@@ -23,7 +23,25 @@
 
             <!-- Store Name & Catchphrase -->
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900 mb-3">{{ $store->store_name }}</h1>
+                <div class="flex items-start justify-between mb-3">
+                    <h1 class="text-3xl font-bold text-gray-900">{{ $store->store_name }}</h1>
+
+                    <!-- お気に入りボタン -->
+                    @auth('customer')
+                        @php
+                            $isFavorited = auth('customer')->user()->favorites()->where('store_id', $store->id)->exists();
+                        @endphp
+                        <button onclick="toggleFavorite({{ $store->id }})"
+                                id="favorite-btn-{{ $store->id }}"
+                                class="flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition {{ $isFavorited ? 'bg-red-100 text-red-600 hover:bg-red-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                            <svg class="w-6 h-6" fill="{{ $isFavorited ? 'currentColor' : 'none' }}" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                            <span id="favorite-text-{{ $store->id }}">{{ $isFavorited ? 'お気に入り済み' : 'お気に入り' }}</span>
+                        </button>
+                    @endauth
+                </div>
+
                 @if($store->storeDetail && $store->storeDetail->catchphrase)
                     <p class="text-xl font-bold text-red-600 mb-4">{{ $store->storeDetail->catchphrase }}</p>
                 @endif
@@ -415,6 +433,10 @@
     @auth('customer')
     <script>
         function toggleFavorite(storeId) {
+            const btn = document.getElementById(`favorite-btn-${storeId}`);
+            const text = document.getElementById(`favorite-text-${storeId}`);
+            const svg = btn.querySelector('svg');
+
             fetch(`/customer/stores/${storeId}/favorite`, {
                 method: 'POST',
                 headers: {
@@ -424,8 +446,38 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);
-                location.reload();
+                if (data.status === 'added') {
+                    // お気に入りに追加された
+                    btn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+                    btn.classList.add('bg-red-100', 'text-red-600', 'hover:bg-red-200');
+                    svg.setAttribute('fill', 'currentColor');
+                    text.textContent = 'お気に入り済み';
+                } else {
+                    // お気に入りから削除された
+                    btn.classList.remove('bg-red-100', 'text-red-600', 'hover:bg-red-200');
+                    btn.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+                    svg.setAttribute('fill', 'none');
+                    text.textContent = 'お気に入り';
+                }
+
+                // 簡単な通知
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-4 right-4 bg-white shadow-lg rounded-lg p-4 z-50 border-l-4 ' +
+                    (data.status === 'added' ? 'border-green-500' : 'border-gray-500');
+                notification.innerHTML = `
+                    <p class="font-medium">${data.message}</p>
+                `;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.transition = 'opacity 0.3s';
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('エラーが発生しました');
             });
         }
     </script>
