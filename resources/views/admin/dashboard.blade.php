@@ -8,20 +8,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @php
-                use App\Models\Store;
-                use App\Models\Customer;
-                use App\Models\Review;
-                use App\Models\Reservation;
-                use App\Models\StoreApplication;
-
-                $totalStores = Store::count();
-                $activeStores = Store::where('status', 'active')->count();
-                $totalCustomers = Customer::where('status', 'active')->count();
-                $pendingApplications = StoreApplication::where('status', 'pending')->count();
-                $pendingReviews = Review::where('status', 'pending')->count();
-                $todayReservations = Reservation::whereDate('reservation_date', today())->count();
-                $totalReviews = Review::where('status', 'published')->count();
-                $avgRating = Review::where('status', 'published')->avg('rating') ?? 0;
+                $totalStores = \App\Models\Store::count();
+                $activeStores = \App\Models\Store::where('status', 'active')->count();
+                $totalCustomers = \App\Models\Customer::where('status', 'active')->count();
+                $pendingApplications = \App\Models\StoreApplication::where('status', 'pending')->count();
+                $pendingReviews = \App\Models\Review::where('status', 'pending')->count();
+                $todayReservations = \App\Models\Reservation::whereDate('reservation_date', today())->count();
+                $totalReviews = \App\Models\Review::where('status', 'published')->count();
+                $avgRating = \App\Models\Review::where('status', 'published')->avg('rating') ?? 0;
             @endphp
 
             <!-- Stats Cards -->
@@ -181,7 +175,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- 最近の店舗申請 -->
                 @php
-                    $recentApplications = StoreApplication::orderBy('created_at', 'desc')->limit(5)->get();
+                    $recentApplications = \App\Models\StoreApplication::orderBy('created_at', 'desc')->limit(5)->get();
                 @endphp
                 @if($recentApplications->count() > 0)
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -221,7 +215,7 @@
 
                 <!-- 最近のレビュー -->
                 @php
-                    $recentReviews = Review::with(['store', 'customer'])->orderBy('created_at', 'desc')->limit(5)->get();
+                    $recentReviews = \App\Models\Review::with(['store', 'customer'])->orderBy('created_at', 'desc')->limit(5)->get();
                 @endphp
                 @if($recentReviews->count() > 0)
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
