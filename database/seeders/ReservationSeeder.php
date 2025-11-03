@@ -207,7 +207,7 @@ class ReservationSeeder extends Seeder
                 'customer_name' => $reservationData['customer_name'],
                 'customer_email' => $reservationData['customer_email'],
                 'customer_phone' => $reservationData['customer_phone'],
-                'notes' => $reservationData['notes'],
+                'message' => $reservationData['notes'],
                 'status' => $reservationData['status'],
             ]);
 
