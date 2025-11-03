@@ -95,6 +95,15 @@ Route::middleware('auth')->group(function () {
 
 // Customer routes (requires customer auth)
 Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {
+    // My Page
+    Route::get('/mypage', [App\Http\Controllers\Customer\MyPageController::class, 'index'])->name('mypage.index');
+    Route::get('/mypage/reservations', [App\Http\Controllers\Customer\MyPageController::class, 'reservations'])->name('mypage.reservations');
+    Route::get('/mypage/reviews', [App\Http\Controllers\Customer\MyPageController::class, 'reviews'])->name('mypage.reviews');
+    Route::get('/mypage/profile/edit', [App\Http\Controllers\Customer\MyPageController::class, 'editProfile'])->name('mypage.edit-profile');
+    Route::put('/mypage/profile', [App\Http\Controllers\Customer\MyPageController::class, 'updateProfile'])->name('mypage.update-profile');
+    Route::get('/mypage/password/edit', [App\Http\Controllers\Customer\MyPageController::class, 'editPassword'])->name('mypage.edit-password');
+    Route::put('/mypage/password', [App\Http\Controllers\Customer\MyPageController::class, 'updatePassword'])->name('mypage.update-password');
+
     // Reviews
     Route::get('/stores/{store}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/stores/{store}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
@@ -172,10 +181,14 @@ Route::middleware(['auth', 'verified', 'active', 'role:store_owner,store_staff']
     Route::post('/reservations/{reservation}/cancel', [StoreReservationController::class, 'cancel'])->name('reservations.cancel');
     Route::post('/reservations/{reservation}/complete', [StoreReservationController::class, 'complete'])->name('reservations.complete');
 
+    // Review management
+    Route::get('/reviews', [App\Http\Controllers\Store\ReviewController::class, 'index'])->name('reviews.index');
+    Route::get('/reviews/{review}', [App\Http\Controllers\Store\ReviewController::class, 'show'])->name('reviews.show');
+
     // Review replies
     Route::post('/reviews/{review}/reply', [ReviewReplyController::class, 'store'])->name('reviews.reply.store');
-    Route::patch('/review-replies/{reviewReply}', [ReviewReplyController::class, 'update'])->name('reviews.reply.update');
-    Route::delete('/review-replies/{reviewReply}', [ReviewReplyController::class, 'destroy'])->name('reviews.reply.destroy');
+    Route::patch('/reviews/{review}/reply', [ReviewReplyController::class, 'update'])->name('reviews.reply.update');
+    Route::delete('/reviews/{review}/reply', [ReviewReplyController::class, 'destroy'])->name('reviews.reply.destroy');
 });
 
 require __DIR__.'/auth.php';

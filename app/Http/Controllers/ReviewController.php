@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReviewPosted;
 use App\Models\Review;
 use App\Models\Store;
 use App\Models\ReviewImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ReviewController extends Controller
@@ -49,6 +51,11 @@ class ReviewController extends Controller
                     'image_path' => $path,
                 ]);
             }
+        }
+
+        // Send notification email to store
+        if ($store->email) {
+            Mail::to($store->email)->send(new ReviewPosted($review));
         }
 
         return redirect()

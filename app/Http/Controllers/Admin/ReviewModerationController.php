@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReviewApproved;
+use App\Mail\ReviewRejected;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReviewModerationController extends Controller
 {
@@ -49,16 +52,30 @@ class ReviewModerationController extends Controller
         // Update store rating
         $review->store->updateRating();
 
+        // Send approval email to customer
+        if ($review->customer && $review->customer->email) {
+            Mail::to($review->customer->email)->send(new ReviewApproved($review));
+        }
+
         return redirect()
             ->route('admin.reviews.index')
             ->with('success', 'レビューを承認しました');
     }
 
-    public function reject(Review $review)
+    public function reject(Request $request, Review $review)
     {
+        $validated = $request->validate([
+            'reason' => 'required|string|max:1000',
+        ]);
+
         $review->update([
             'status' => 'rejected',
         ]);
+
+        // Send rejection email to customer
+        if ($review->customer && $review->customer->email) {
+            Mail::to($review->customer->email)->send(new ReviewRejected($review, $validated['reason']));
+        }
 
         return redirect()
             ->route('admin.reviews.index')

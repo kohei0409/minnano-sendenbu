@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReservationCreated;
+use App\Mail\ReservationNotification;
 use App\Models\Reservation;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ReservationController extends Controller
 {
@@ -36,6 +39,14 @@ class ReservationController extends Controller
             'message' => $validated['message'] ?? null,
             'status' => 'pending',
         ]);
+
+        // Send confirmation email to customer
+        Mail::to($validated['customer_email'])->send(new ReservationCreated($reservation));
+
+        // Send notification email to store
+        if ($store->email) {
+            Mail::to($store->email)->send(new ReservationNotification($reservation));
+        }
 
         return redirect()
             ->route('stores.show', $store)
