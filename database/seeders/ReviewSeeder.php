@@ -170,9 +170,9 @@ class ReviewSeeder extends Seeder
                     'customer_id' => $customer->id,
                     'rating' => $reviewInfo['rating'],
                     'title' => $reviewInfo['title'],
-                    'comment' => $reviewInfo['comment'],
+                    'content' => $reviewInfo['comment'],
                     'visit_date' => $reviewInfo['visit_date'],
-                    'status' => 'approved',
+                    'status' => 'published',
                 ]);
 
                 $totalReviews++;
