@@ -59,6 +59,9 @@ class StoreUserSeeder extends Seeder
             'featured_until' => now()->addMonths(3),
         ]);
 
+        // ユーザーにstore_idを設定
+        $owner1->update(['store_id' => $store1->id]);
+
         $store1->storeDetail()->create([
             'description' => '創業30年の老舗ラーメン店。自慢の鶏白湯スープは毎朝仕込み、コク深い味わいが特徴です。特製の細麺との相性も抜群。深夜営業もしているので、仕事帰りにもぜひお立ち寄りください。',
             'access_info' => '渋谷駅ハチ公口から徒歩3分',
@@ -156,6 +159,9 @@ class StoreUserSeeder extends Seeder
             'is_featured' => true,
             'featured_until' => now()->addMonths(3),
         ]);
+
+        // ユーザーにstore_idを設定
+        $owner2->update(['store_id' => $store2->id]);
 
         $store2->storeDetail()->create([
             'description' => '本場イタリアで修行したシェフが作る本格イタリアン。新鮮な魚介と厳選したイタリア産食材を使用した料理の数々をお楽しみください。ワインのラインナップも充実しています。',
@@ -257,6 +263,9 @@ class StoreUserSeeder extends Seeder
             'status' => 'active',
         ]);
 
+        // ユーザーにstore_idを設定
+        $owner3->update(['store_id' => $store3->id]);
+
         $store3->storeDetail()->create([
             'description' => '静かな路地裏にある隠れ家カフェ。自家焙煎のコーヒーと手作りスイーツが自慢です。Wi-Fi完備で電源も利用可能なので、リモートワークにも最適です。',
             'access_info' => '新宿三丁目駅C8出口から徒歩5分',
@@ -340,6 +349,9 @@ class StoreUserSeeder extends Seeder
             'is_featured' => true,
             'featured_until' => now()->addMonths(3),
         ]);
+
+        // ユーザーにstore_idを設定
+        $owner4->update(['store_id' => $store4->id]);
 
         $store4->storeDetail()->create([
             'description' => '経験豊富なスタイリストがあなたに最適なヘアスタイルをご提案。最新のトレンドを取り入れながら、一人ひとりのライフスタイルに合わせたスタイルを提供します。',
@@ -433,6 +445,9 @@ class StoreUserSeeder extends Seeder
             'review_count' => 28,
             'status' => 'active',
         ]);
+
+        // ユーザーにstore_idを設定
+        $owner5->update(['store_id' => $store5->id]);
 
         $store5->storeDetail()->create([
             'description' => 'A5ランクの黒毛和牛を中心に、厳選したお肉をリーズナブルな価格で提供。個室も完備しているので、接待や記念日にもおすすめです。',
