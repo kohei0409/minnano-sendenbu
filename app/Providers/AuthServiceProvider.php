@@ -14,6 +14,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         \App\Models\Review::class => \App\Policies\ReviewPolicy::class,
+        \App\Models\Menu::class => \App\Policies\MenuPolicy::class,
+        \App\Models\Coupon::class => \App\Policies\CouponPolicy::class,
+        \App\Models\Reservation::class => \App\Policies\ReservationPolicy::class,
+        \App\Models\StoreImage::class => \App\Policies\StoreImagePolicy::class,
     ];
 
     /**
