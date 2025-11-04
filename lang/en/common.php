@@ -1,0 +1,101 @@
+<?php
+
+return [
+    // Navigation
+    'home' => 'Home',
+    'store_search' => 'Store Search',
+    'login' => 'Login',
+    'register' => 'Register',
+    'logout' => 'Logout',
+    'my_page' => 'My Page',
+    'dashboard' => 'Dashboard',
+    'profile' => 'Profile',
+    'favorites' => 'Favorites',
+
+    // Buttons
+    'search' => 'Search',
+    'view_details' => 'View Details',
+    'reserve' => 'Reserve',
+    'post' => 'Post',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'close' => 'Close',
+    'show_more' => 'Show More',
+    'show_less' => 'Show Less',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'submit' => 'Submit',
+    'confirm' => 'Confirm',
+
+    // Form Labels
+    'name' => 'Name',
+    'email' => 'Email Address',
+    'password' => 'Password',
+    'password_confirmation' => 'Confirm Password',
+    'phone' => 'Phone Number',
+    'address' => 'Address',
+    'postal_code' => 'Postal Code',
+    'keyword' => 'Keyword',
+    'description' => 'Description',
+    'title' => 'Title',
+    'content' => 'Content',
+    'image' => 'Image',
+    'category' => 'Category',
+    'area' => 'Area',
+
+    // Status
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'published' => 'Published',
+    'draft' => 'Draft',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+
+    // Messages
+    'no_results' => 'No results found',
+    'loading' => 'Loading...',
+    'success' => 'Success',
+    'error' => 'An error occurred',
+    'confirm_delete' => 'Are you sure you want to delete this?',
+    'saved_successfully' => 'Saved successfully',
+    'deleted_successfully' => 'Deleted successfully',
+
+    // Time
+    'today' => 'Today',
+    'yesterday' => 'Yesterday',
+    'tomorrow' => 'Tomorrow',
+    'this_week' => 'This Week',
+    'this_month' => 'This Month',
+    'year' => 'Year',
+    'month' => 'Month',
+    'day' => 'Day',
+    'hour' => 'Hour',
+    'minute' => 'Minute',
+
+    // Days of Week
+    'sunday' => 'Sunday',
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+
+    // Common Phrases
+    'all' => 'All',
+    'none' => 'None',
+    'other' => 'Other',
+    'select' => 'Please Select',
+    'optional' => 'Optional',
+    'required' => 'Required',
+    'or' => 'or',
+    'and' => 'and',
+    'from' => 'From',
+    'to' => 'To',
+    'items_count' => ':count items',
+    'page' => 'Page',
+];

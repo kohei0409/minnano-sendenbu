@@ -25,21 +25,34 @@
                             <span>📍 全国の店舗情報を掲載中</span>
                         </div>
                         <div class="flex items-center space-x-4">
+                            <!-- Language Switcher -->
+                            <div class="flex items-center space-x-2 border-r border-orange-400 pr-4">
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'ja']) }}"
+                                   class="hover:text-orange-100 font-medium {{ app()->getLocale() == 'ja' ? 'underline' : '' }}">
+                                    日本語
+                                </a>
+                                <span>|</span>
+                                <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}"
+                                   class="hover:text-orange-100 font-medium {{ app()->getLocale() == 'en' ? 'underline' : '' }}">
+                                    English
+                                </a>
+                            </div>
+
                             @auth('customer')
                                 <a href="{{ route('customer.favorites.index') }}" class="hover:text-orange-100 flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
                                     </svg>
-                                    お気に入り
+                                    {{ __('common.favorites') }}
                                 </a>
                                 <span>{{ auth('customer')->user()->name }}さん</span>
                                 <form method="POST" action="{{ route('customer.logout') }}" class="inline">
                                     @csrf
-                                    <button type="submit" class="hover:text-orange-100">ログアウト</button>
+                                    <button type="submit" class="hover:text-orange-100">{{ __('common.logout') }}</button>
                                 </form>
                             @else
                                 <a href="{{ route('store-applications.create') }}" class="hover:text-orange-100">店舗掲載</a>
-                                <a href="{{ route('customer.login') }}" class="hover:text-orange-100">ログイン</a>
+                                <a href="{{ route('customer.login') }}" class="hover:text-orange-100">{{ __('common.login') }}</a>
                             @endauth
                         </div>
                     </div>

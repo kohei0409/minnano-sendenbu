@@ -1,0 +1,101 @@
+<?php
+
+return [
+    // Navigation
+    'home' => 'ホーム',
+    'store_search' => '店舗検索',
+    'login' => 'ログイン',
+    'register' => '会員登録',
+    'logout' => 'ログアウト',
+    'my_page' => 'マイページ',
+    'dashboard' => 'ダッシュボード',
+    'profile' => 'プロフィール',
+    'favorites' => 'お気に入り',
+
+    // Buttons
+    'search' => '検索',
+    'view_details' => '詳細を見る',
+    'reserve' => '予約する',
+    'post' => '投稿する',
+    'edit' => '編集',
+    'delete' => '削除',
+    'save' => '保存',
+    'cancel' => 'キャンセル',
+    'back' => '戻る',
+    'close' => '閉じる',
+    'show_more' => 'もっと見る',
+    'show_less' => '閉じる',
+    'clear' => 'クリア',
+    'apply' => '適用',
+    'submit' => '送信',
+    'confirm' => '確認',
+
+    // Form Labels
+    'name' => '名前',
+    'email' => 'メールアドレス',
+    'password' => 'パスワード',
+    'password_confirmation' => 'パスワード（確認）',
+    'phone' => '電話番号',
+    'address' => '住所',
+    'postal_code' => '郵便番号',
+    'keyword' => 'キーワード',
+    'description' => '説明',
+    'title' => 'タイトル',
+    'content' => '内容',
+    'image' => '画像',
+    'category' => 'カテゴリー',
+    'area' => 'エリア',
+
+    // Status
+    'pending' => '承認待ち',
+    'approved' => '承認済み',
+    'rejected' => '却下',
+    'published' => '公開中',
+    'draft' => '下書き',
+    'active' => '有効',
+    'inactive' => '無効',
+
+    // Messages
+    'no_results' => '結果が見つかりませんでした',
+    'loading' => '読み込み中...',
+    'success' => '成功しました',
+    'error' => 'エラーが発生しました',
+    'confirm_delete' => '本当に削除しますか？',
+    'saved_successfully' => '保存しました',
+    'deleted_successfully' => '削除しました',
+
+    // Time
+    'today' => '本日',
+    'yesterday' => '昨日',
+    'tomorrow' => '明日',
+    'this_week' => '今週',
+    'this_month' => '今月',
+    'year' => '年',
+    'month' => '月',
+    'day' => '日',
+    'hour' => '時',
+    'minute' => '分',
+
+    // Days of Week
+    'sunday' => '日曜日',
+    'monday' => '月曜日',
+    'tuesday' => '火曜日',
+    'wednesday' => '水曜日',
+    'thursday' => '木曜日',
+    'friday' => '金曜日',
+    'saturday' => '土曜日',
+
+    // Common Phrases
+    'all' => 'すべて',
+    'none' => 'なし',
+    'other' => 'その他',
+    'select' => '選択してください',
+    'optional' => '任意',
+    'required' => '必須',
+    'or' => 'または',
+    'and' => 'および',
+    'from' => 'から',
+    'to' => 'まで',
+    'items_count' => ':count件',
+    'page' => 'ページ',
+];

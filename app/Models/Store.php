@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Store extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = [
         'store_name',
@@ -198,5 +199,49 @@ class Store extends Model
     {
         $count = $this->favoritedBy()->count();
         $this->update(['favorite_count' => $count]);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        // Load storeDetail if not already loaded
+        if (!$this->relationLoaded('storeDetail')) {
+            $this->load('storeDetail');
+        }
+
+        return [
+            'id' => $this->id,
+            'store_name' => $this->store_name,
+            'industry' => $this->industry,
+            'street_address' => $this->street_address,
+            'city' => $this->city,
+            'prefecture' => $this->prefecture,
+            'description' => $this->storeDetail?->description ?? '',
+            'catchphrase' => $this->storeDetail?->catchphrase ?? '',
+        ];
+    }
+
+    /**
+     * Get the value used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKey(): mixed
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get the key name used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKeyName(): mixed
+    {
+        return 'id';
     }
 }

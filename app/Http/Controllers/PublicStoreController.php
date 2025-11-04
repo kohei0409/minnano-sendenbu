@@ -45,48 +45,95 @@ class PublicStoreController extends Controller
 
     public function index(Request $request)
     {
-        $query = Store::query()->where('status', 'active');
-
-        // Search by keyword
+        // Use Scout search when keyword is provided
         if ($request->filled('keyword')) {
             $keyword = $request->keyword;
-            $query->where(function ($q) use ($keyword) {
-                $q->where('store_name', 'like', "%{$keyword}%")
-                  ->orWhere('description', 'like', "%{$keyword}%");
-            });
-        }
 
-        // Filter by category
-        if ($request->filled('category_id')) {
-            $query->byCategory($request->category_id);
-        }
+            // Start with Scout search
+            $scoutQuery = Store::search($keyword)
+                ->where('status', 'active');
 
-        // Filter by area
-        if ($request->filled('area_id')) {
-            $query->byArea($request->area_id);
-        }
+            // Get the IDs from Scout search results
+            $searchResults = $scoutQuery->get();
+            $storeIds = $searchResults->pluck('id')->toArray();
 
-        // Filter by rating
-        if ($request->filled('min_rating')) {
-            $query->highRated($request->min_rating);
-        }
+            // If no results from Scout, return empty collection
+            if (empty($storeIds)) {
+                $query = Store::query()->whereRaw('1 = 0'); // Empty query
+            } else {
+                // Build query with Scout results
+                $query = Store::query()
+                    ->whereIn('id', $storeIds)
+                    ->where('status', 'active');
 
-        // Sort
-        $sortBy = $request->get('sort', 'created_at');
-        $sortOrder = $request->get('order', 'desc');
+                // Apply filters
+                if ($request->filled('category_id')) {
+                    $query->byCategory($request->category_id);
+                }
 
-        switch ($sortBy) {
-            case 'rating':
-                $query->orderBy('average_rating', $sortOrder);
-                break;
-            case 'reviews':
-                $query->orderBy('review_count', $sortOrder);
-                break;
-            case 'views':
-                $query->orderBy('view_count', $sortOrder);
-                break;
-            default:
-                $query->orderBy('created_at', $sortOrder);
+                if ($request->filled('area_id')) {
+                    $query->byArea($request->area_id);
+                }
+
+                if ($request->filled('min_rating')) {
+                    $query->highRated($request->min_rating);
+                }
+
+                // Sort
+                $sortBy = $request->get('sort', 'created_at');
+                $sortOrder = $request->get('order', 'desc');
+
+                switch ($sortBy) {
+                    case 'rating':
+                        $query->orderBy('average_rating', $sortOrder);
+                        break;
+                    case 'reviews':
+                        $query->orderBy('review_count', $sortOrder);
+                        break;
+                    case 'views':
+                        $query->orderBy('view_count', $sortOrder);
+                        break;
+                    default:
+                        // Maintain Scout relevance order by preserving the order of IDs
+                        $query->orderByRaw('FIELD(id, ' . implode(',', $storeIds) . ')');
+                }
+            }
+        } else {
+            // Use traditional query builder when no keyword
+            $query = Store::query()->where('status', 'active');
+
+            // Filter by category
+            if ($request->filled('category_id')) {
+                $query->byCategory($request->category_id);
+            }
+
+            // Filter by area
+            if ($request->filled('area_id')) {
+                $query->byArea($request->area_id);
+            }
+
+            // Filter by rating
+            if ($request->filled('min_rating')) {
+                $query->highRated($request->min_rating);
+            }
+
+            // Sort
+            $sortBy = $request->get('sort', 'created_at');
+            $sortOrder = $request->get('order', 'desc');
+
+            switch ($sortBy) {
+                case 'rating':
+                    $query->orderBy('average_rating', $sortOrder);
+                    break;
+                case 'reviews':
+                    $query->orderBy('review_count', $sortOrder);
+                    break;
+                case 'views':
+                    $query->orderBy('view_count', $sortOrder);
+                    break;
+                default:
+                    $query->orderBy('created_at', $sortOrder);
+            }
         }
 
         $stores = $query->with(['category', 'area'])->paginate(20);
