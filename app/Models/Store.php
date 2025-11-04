@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Searchable;
+// use Laravel\Scout\Searchable; // Uncomment after installing: composer require laravel/scout
 
 class Store extends Model
 {
-    use HasFactory, SoftDeletes, Searchable;
+    use HasFactory, SoftDeletes; // , Searchable; // Uncomment after installing Laravel Scout
 
     protected $fillable = [
         'store_name',
@@ -201,11 +201,8 @@ class Store extends Model
         $this->update(['favorite_count' => $count]);
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array<string, mixed>
-     */
+    // Laravel Scout methods - Uncomment after installing: composer require laravel/scout
+    /*
     public function toSearchableArray(): array
     {
         // Load storeDetail if not already loaded
@@ -225,23 +222,14 @@ class Store extends Model
         ];
     }
 
-    /**
-     * Get the value used to index the model.
-     *
-     * @return mixed
-     */
     public function getScoutKey(): mixed
     {
         return $this->id;
     }
 
-    /**
-     * Get the key name used to index the model.
-     *
-     * @return mixed
-     */
     public function getScoutKeyName(): mixed
     {
         return 'id';
     }
+    */
 }
