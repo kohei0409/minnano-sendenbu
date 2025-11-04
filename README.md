@@ -1,66 +1,328 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# みんなの宣伝部（Minna no Sendenbu）
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+地域店舗情報プラットフォーム - Laravel 10
 
-## About Laravel
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-red.svg)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2-blue.svg)](https://php.net)
+[![License](https://img.shields.io/badge/license-Proprietary-green.svg)](LICENSE)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📖 概要
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**みんなの宣伝部**は、地域の店舗と顧客をつなぐ総合情報プラットフォームです。店舗検索、レビュー、予約、クーポンなど、包括的な機能を提供します。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 主な機能
 
-## Learning Laravel
+- 🔍 **店舗検索** - キーワード、カテゴリー、エリア、評価でフィルタリング
+- ⭐ **レビューシステム** - 5段階評価、画像投稿、店舗返信機能
+- 📅 **予約システム** - オンライン予約、予約管理
+- 💰 **クーポン機能** - 割引クーポンの発行・管理
+- ❤️ **お気に入り** - 気になる店舗をブックマーク
+- 🗺️ **地図表示** - Google Maps APIによる店舗位置表示
+- 🌍 **多言語対応** - 日本語・英語切り替え
+- 📧 **メール通知** - 予約確認、レビュー承認などの自動通知
+- 🖼️ **画像最適化** - 自動リサイズ・圧縮
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 技術スタック
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### バックエンド
+- **Laravel 10.x** - PHPフレームワーク
+- **PHP 8.2** - プログラミング言語
+- **MySQL** - データベース
+- **Laravel Breeze** - 認証システム
+- **Spatie Laravel Permission** - 権限管理
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### フロントエンド
+- **Tailwind CSS** - CSSフレームワーク
+- **Alpine.js** - JavaScriptフレームワーク
+- **Blade** - テンプレートエンジン
 
-## Laravel Sponsors
+### 拡張機能
+- **Laravel Scout** - 全文検索（オプション）
+- **Intervention Image** - 画像処理
+- **Google Maps API** - 地図表示
+- **Chart.js** - グラフ表示
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📋 システム要件
 
-### Premium Partners
+- PHP >= 8.2
+- MySQL >= 8.0
+- Composer
+- Node.js & NPM
+- GD Library または Imagick（画像処理用）
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 🛠️ インストール
 
-## Contributing
+### 1. リポジトリのクローン
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone [repository-url]
+cd web
+```
 
-## Code of Conduct
+### 2. 依存関係のインストール
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# Composer依存関係
+composer install
 
-## Security Vulnerabilities
+# NPM依存関係
+npm install
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. 環境設定
 
-## License
+```bash
+# .envファイルの作成
+cp .env.example .env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# アプリケーションキーの生成
+php artisan key:generate
+```
+
+### 4. データベース設定
+
+`.env`ファイルでデータベース接続情報を設定：
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=minna_sendenbu
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+### 5. マイグレーションとシーダー
+
+```bash
+# データベースマイグレーション
+php artisan migrate
+
+# 初期データの投入
+php artisan db:seed --class=CategorySeeder
+php artisan db:seed --class=AreaSeeder
+php artisan db:seed --class=StoreUserSeeder  # テストデータ（オプション）
+```
+
+### 6. ストレージリンク
+
+```bash
+php artisan storage:link
+```
+
+### 7. 開発サーバーの起動
+
+```bash
+php artisan serve
+```
+
+アプリケーションは http://localhost:8000 でアクセスできます。
+
+## 🔧 オプション機能の設定
+
+### Laravel Scout（全文検索）
+
+```bash
+composer require laravel/scout
+php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
+```
+
+`.env`に追加：
+```env
+SCOUT_DRIVER=collection
+```
+
+詳細は[SEARCH_SETUP.md](SEARCH_SETUP.md)を参照。
+
+### Intervention Image（画像最適化）
+
+```bash
+composer require intervention/image
+php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"
+```
+
+詳細は[IMAGE_OPTIMIZATION_SETUP.md](IMAGE_OPTIMIZATION_SETUP.md)を参照。
+
+### Google Maps API（地図表示）
+
+`.env`に追加：
+```env
+GOOGLE_MAPS_API_KEY=your_api_key_here
+```
+
+詳細は[GOOGLE_MAPS_SETUP.md](GOOGLE_MAPS_SETUP.md)を参照。
+
+### メール設定
+
+`.env`に追加：
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=your-smtp-host
+MAIL_PORT=587
+MAIL_USERNAME=your-username
+MAIL_PASSWORD=your-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=support@minna-sendenbu.jp
+MAIL_FROM_NAME="みんなの宣伝部"
+```
+
+## 🧪 テスト
+
+### テストの実行
+
+```bash
+# 全テスト実行
+php artisan test
+
+# 特定のテスト実行
+php artisan test --filter=ReviewTest
+
+# カバレッジレポート生成
+php artisan test --coverage
+```
+
+詳細は[TESTING_GUIDE.md](TESTING_GUIDE.md)を参照。
+
+## 📚 ドキュメント
+
+- [統合状況レポート](SENDENBU_INTEGRATION_STATUS.md) - 全機能の実装状況
+- [画像最適化セットアップ](IMAGE_OPTIMIZATION_SETUP.md)
+- [検索機能セットアップ](SEARCH_SETUP.md)
+- [Google Mapsセットアップ](GOOGLE_MAPS_SETUP.md)
+- [多言語対応セットアップ](MULTILINGUAL_SETUP.md)
+- [テストガイド](TESTING_GUIDE.md)
+
+## 👥 ユーザーロール
+
+### 管理者（Admin）
+- 全機能へのアクセス
+- 店舗申請の承認・却下
+- レビューの承認・却下
+- カテゴリー・エリアの管理
+- ユーザー管理
+
+### 店舗オーナー（Store Owner）
+- 店舗情報の管理
+- メニュー・クーポン・営業時間の設定
+- 予約の管理
+- レビューへの返信
+- スタッフの管理
+
+### 店舗スタッフ（Store Staff）
+- 予約の管理
+- レビューへの返信
+- 店舗情報の閲覧
+
+### 顧客（Customer）
+- 店舗検索・閲覧
+- レビュー投稿
+- 予約作成
+- お気に入り登録
+- マイページ管理
+
+## 🗂️ プロジェクト構造
+
+```
+web/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/          # 管理者用コントローラー
+│   │   │   ├── Store/          # 店舗管理用コントローラー
+│   │   │   ├── Customer/       # 顧客用コントローラー
+│   │   │   └── Auth/           # 認証コントローラー
+│   │   ├── Middleware/
+│   │   └── Requests/
+│   ├── Models/                  # Eloquentモデル
+│   ├── Mail/                    # Mailableクラス
+│   ├── Services/                # サービスクラス
+│   └── Policies/                # 認可ポリシー
+├── database/
+│   ├── migrations/              # データベースマイグレーション
+│   ├── seeders/                 # シーダー
+│   └── factories/               # モデルファクトリー
+├── resources/
+│   ├── views/
+│   │   ├── public/             # 公開ページ
+│   │   ├── customer/           # 顧客マイページ
+│   │   ├── store/              # 店舗管理画面
+│   │   ├── admin/              # 管理者画面
+│   │   └── emails/             # メールテンプレート
+│   └── lang/                    # 言語ファイル
+├── routes/
+│   └── web.php                  # ルート定義
+└── tests/
+    └── Feature/                 # Featureテスト
+```
+
+## 📊 データベース構造
+
+- **17テーブル** - users, customers, stores, reviews, reservations, favorites など
+- **完全なリレーションシップ** - belongsTo, hasMany, belongsToMany
+- **ソフトデリート対応** - 重要なデータは論理削除
+
+詳細は[SENDENBU_INTEGRATION_STATUS.md](SENDENBU_INTEGRATION_STATUS.md)を参照。
+
+## 🌐 多言語対応
+
+現在対応している言語：
+- 🇯🇵 日本語（デフォルト）
+- 🇬🇧 English
+
+詳細は[MULTILINGUAL_SETUP.md](MULTILINGUAL_SETUP.md)を参照。
+
+## 🔐 セキュリティ
+
+- CSRF保護
+- XSS対策
+- SQLインジェクション対策
+- パスワードハッシュ化（bcrypt）
+- 認証・認可システム（Laravel標準）
+- ポリシーベースのアクセス制御
+
+## 📈 パフォーマンス最適化
+
+- Eagerローディング
+- クエリ最適化
+- 画像の自動圧縮・リサイズ
+- キャッシュ機能
+- ページネーション
+
+## 🚢 本番環境へのデプロイ
+
+詳細な手順は[SENDENBU_INTEGRATION_STATUS.md](SENDENBU_INTEGRATION_STATUS.md)の「デプロイ手順」セクションを参照してください。
+
+### 主要ステップ
+
+1. 依存関係のインストール
+2. 環境変数の設定
+3. データベースマイグレーション
+4. ストレージリンクの作成
+5. キャッシュの最適化
+6. 権限設定
+
+## 🤝 コントリビューション
+
+このプロジェクトは現在プライベートです。
+
+## 📄 ライセンス
+
+Proprietary - アドトラスト株式会社
+
+## 📞 サポート
+
+- **プロジェクト管理**: アドトラスト株式会社
+- **技術サポート**: Claude Code
+
+## 📝 更新履歴
+
+### Version 1.0.0 (2025-11-04)
+- 初回リリース
+- 全コア機能実装完了
+- 全拡張機能実装完了
+- テスト作成完了
+
+---
+
+**🎉 みんなの宣伝部 - 地域をつなぐ、店舗情報プラットフォーム**
