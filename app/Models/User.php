@@ -31,6 +31,9 @@ class User extends Authenticatable
         'store_id',
         'approved_at',
         'approved_by',
+        'is_pro_reviewer',
+        'reviewer_bio',
+        'reviewer_avatar',
     ];
 
     /**
@@ -52,6 +55,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'approved_at' => 'datetime',
         'password' => 'hashed',
+        'is_pro_reviewer' => 'boolean',
     ];
 
     // リレーション
@@ -68,6 +72,26 @@ class User extends Authenticatable
     public function approvedUsers(): HasMany
     {
         return $this->hasMany(User::class, 'approved_by');
+    }
+
+    public function badges(): HasMany
+    {
+        return $this->hasMany(UserBadge::class);
+    }
+
+    public function activeBadges(): HasMany
+    {
+        return $this->hasMany(UserBadge::class)->active();
+    }
+
+    public function thematicReviews(): HasMany
+    {
+        return $this->hasMany(ThematicReview::class, 'writer_id');
+    }
+
+    public function publishedThematicReviews(): HasMany
+    {
+        return $this->hasMany(ThematicReview::class, 'writer_id')->published();
     }
 
     // 権限チェックメソッド
@@ -114,5 +138,22 @@ class User extends Authenticatable
     public function isSuspended(): bool
     {
         return $this->status === 'suspended';
+    }
+
+    public function isProReviewer(): bool
+    {
+        return $this->is_pro_reviewer === true;
+    }
+
+    // Scopes
+    public function scopeProReviewers($query)
+    {
+        return $query->where('is_pro_reviewer', true)
+            ->where('status', 'active');
+    }
+
+    public function getReviewerAvatarUrl(): string
+    {
+        return $this->reviewer_avatar ?? '/images/reviewers/default-avatar.png';
     }
 }

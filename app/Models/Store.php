@@ -139,6 +139,27 @@ class Store extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    public function reservationSlots()
+    {
+        return $this->hasMany(ReservationSlot::class);
+    }
+
+    public function externalCoupons()
+    {
+        return $this->hasMany(ExternalCoupon::class);
+    }
+
+    public function activeExternalCoupons()
+    {
+        return $this->externalCoupons()->active();
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_stores')
+            ->withTimestamps();
+    }
+
     public function favoritedBy()
     {
         return $this->belongsToMany(Customer::class, 'favorites')
@@ -148,6 +169,23 @@ class Store extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'store_tags')
+            ->withTimestamps();
+    }
+
+    public function sns()
+    {
+        return $this->hasMany(StoreSns::class);
+    }
+
+    public function activeSns()
+    {
+        return $this->hasMany(StoreSns::class)->active();
+    }
+
+    public function thematicReviews()
+    {
+        return $this->belongsToMany(ThematicReview::class, 'thematic_review_stores')
+            ->withPivot('rank', 'comment')
             ->withTimestamps();
     }
 

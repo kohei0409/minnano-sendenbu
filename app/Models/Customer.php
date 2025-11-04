@@ -44,6 +44,11 @@ class Customer extends Authenticatable implements CanResetPasswordContract
         return $this->hasMany(Review::class);
     }
 
+    public function menuReviews()
+    {
+        return $this->hasMany(MenuReview::class);
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Store::class, 'favorites')
@@ -60,6 +65,16 @@ class Customer extends Authenticatable implements CanResetPasswordContract
         return $this->hasMany(CouponUsage::class);
     }
 
+    public function badges()
+    {
+        return $this->hasMany(CustomerBadge::class);
+    }
+
+    public function activeBadges()
+    {
+        return $this->hasMany(CustomerBadge::class)->active();
+    }
+
     // Scopes
     public function scopeActive($query)
     {
@@ -72,5 +87,31 @@ class Customer extends Authenticatable implements CanResetPasswordContract
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new \App\Notifications\CustomerResetPasswordNotification($token));
+    }
+
+    // Helper Methods
+    public function getBadges()
+    {
+        return $this->activeBadges()->get();
+    }
+
+    public function getReviewStats(): array
+    {
+        $totalReviews = $this->reviews()->count() + $this->menuReviews()->count();
+        $helpfulCount = $this->reviews()->sum('helpful_count');
+        $averageRating = $this->reviews()->avg('rating');
+
+        return [
+            'total_reviews' => $totalReviews,
+            'helpful_count' => $helpfulCount,
+            'average_rating' => round($averageRating, 1),
+        ];
+    }
+
+    public function hasReviewBadge(string $badgeType): bool
+    {
+        return $this->activeBadges()
+            ->where('badge_type', $badgeType)
+            ->exists();
     }
 }
